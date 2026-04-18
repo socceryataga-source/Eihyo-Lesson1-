@@ -1,19 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>Pictogram Practice</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pictogram Practice</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Pictogram Practice</h1>
-<img id="img" width="300">
-<p id="jp"></p>
-<p id="hint"></p>
-<button onclick="showHint()">Hint</button>
-<button onclick="showAnswer()">Answer</button>
-<button onclick="nextItem()">Next</button>
-<script src="data.js"></script>
-<script src="script.js"></script>
+  <div class="page">
+    <header class="header">
+      <div class="header-inner">
+        <p class="eyebrow">English Grammar Practice</p>
+        <h1>Pictogram Practice</h1>
+        <p class="sub">絵 → 日本語 → ヒント → 英文確認 の流れで学習します。</p>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="card">
+        <div class="image-wrap">
+          <img id="img" alt="pictogram">
+        </div>
+
+        <div class="text-block">
+          <p class="label">Japanese</p>
+          <p id="jp" class="jp"></p>
+        </div>
+
+        <div class="text-block hint-block">
+          <p class="label">Hint / Answer</p>
+          <p id="hint" class="hint"></p>
+        </div>
+
+        <div class="buttons">
+          <button class="btn btn-secondary" onclick="showHint()">Hint</button>
+          <button class="btn btn-accent" onclick="showAnswer()">Answer</button>
+          <button class="btn btn-primary" onclick="nextItem()">Next</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
