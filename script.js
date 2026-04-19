@@ -46,20 +46,45 @@ function renderCurrent() {
   document.getElementById("img").src = "img/" + current.img;
   document.getElementById("img").alt = current.en;
   document.getElementById("jp").textContent = current.jp;
-  document.getElementById("hint").textContent = "";
+  document.getElementById("hint").innerHTML = "";
   document.getElementById("status").textContent = `${currentIndex + 1} / ${queue.length}`;
 }
 
-function showHint() {
+function escapeHtml(text) {
+  return text
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function renderStructuredHint(showAnswer) {
   if (!current) return;
+
   const words = current.en.split(" ");
-  const hint = words.map((w, i) => (i % 2 === 0 ? "____" : w)).join(" ");
-  document.getElementById("hint").textContent = hint;
+  const html = words.map((word, index) => {
+    const safeWord = escapeHtml(word);
+    const shouldHide = index % 2 === 0;
+
+    if (shouldHide) {
+      const width = Math.max(word.length + 1, 4);
+      const content = showAnswer ? safeWord : "&nbsp;";
+      return `<span class="hint-slot blank-slot" style="min-width:${width}ch;">${content}</span>`;
+    } else {
+      return `<span class="hint-slot filled-slot">${safeWord}</span>`;
+    }
+  }).join(" ");
+
+  document.getElementById("hint").innerHTML = html;
+}
+
+function showHint() {
+  renderStructuredHint(false);
 }
 
 function showAnswer() {
-  if (!current) return;
-  document.getElementById("hint").textContent = current.en;
+  renderStructuredHint(true);
 }
 
 function nextItem() {
@@ -77,7 +102,7 @@ function returnToMenu() {
   current = null;
   queue = [];
   currentIndex = -1;
-  document.getElementById("hint").textContent = "";
+  document.getElementById("hint").innerHTML = "";
   document.getElementById("status").textContent = "";
   showScreen("menuScreen");
 }
