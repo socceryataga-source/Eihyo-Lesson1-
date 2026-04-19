@@ -80,10 +80,12 @@ function renderStructuredHint(showAnswer) {
 }
 
 function showHint() {
+  if (!current) return;
   renderStructuredHint(false);
 }
 
 function showAnswer() {
+  if (!current) return;
   renderStructuredHint(true);
 }
 
